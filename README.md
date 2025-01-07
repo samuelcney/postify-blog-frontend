@@ -1,4 +1,4 @@
-´´´´
+```
 Directory structure:
 └── samuelcney-postify-blog-frontend/
     ├── README.md
@@ -40,4 +40,4 @@ Directory structure:
             │   └── axiosInstance.ts
             └── post/
                 └── postService.ts
-´´´´
+```
