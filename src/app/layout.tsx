@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+/* eslint-disable react/react-in-jsx-scope */
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,18 +12,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Postify",
-  description: "A simple blog",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
+    <html lang="en">
+      <meta name="Postify" content="A simple blog" />
+      <meta charSet="UTF-8" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
