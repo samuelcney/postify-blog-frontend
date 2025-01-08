@@ -6,7 +6,7 @@ interface LoginRootProps {
 
 export const LoginRoot = ({ children }: LoginRootProps) => {
   return (
-    <div className="border-[--foreground] border-2 flex flex-[0.4] h-[85%] rounded-2xl">
+    <div className="border-[--foreground] border-2 flex flex-[0.4] h-[85%] rounded-2xl p-2">
       {children}
     </div>
   );
