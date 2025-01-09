@@ -7,10 +7,14 @@ interface InputRootProps {
 }
 
 export const InputRoot = ({ children, isFullWidth, isRow }: InputRootProps) => {
-  const isfullSize = isFullWidth ? "w-full" : "w-1/2";
+  const isfullSize = isFullWidth ? "w-full" : "w-[80%]";
   const isFlexRow = isRow ? "flex-row" : "flex-col";
 
   return (
-    <div className={`flex ${isFlexRow} ${isfullSize} gap-6`}>{children}</div>
+    <div
+      className={`flex ${isFlexRow} ${isfullSize} gap-8 items-center justify-between`}
+    >
+      {children}
+    </div>
   );
 };

@@ -1,8 +1,11 @@
+import { useRouter } from "next/navigation";
 import { SideBar } from ".";
 import packageJson from "../../../package.json";
 const version = packageJson.version;
 
 export const LeftSideBar = () => {
+  const router = useRouter();
+
   return (
     <div className="w-full h-full flex flex-col justify-between">
       <div className="flex flex-col gap-4 mt-12 pl-3">
@@ -10,7 +13,11 @@ export const LeftSideBar = () => {
         <SideBar.Item IconName="Search" Text="Pesquisa" />
         <SideBar.Item IconName="User" Text="Perfil" />
         <SideBar.Item IconName="Settings" Text="Configurações" />
-        <SideBar.Item IconName="LogOut" Text="Sair" />
+        <SideBar.Item
+          IconName="LogOut"
+          Text="Sair"
+          onclick={() => router.push("/")}
+        />
       </div>
       <div className="w-full items-center justify-center">
         <h1 className="font-light text-center text-sm">V {version}</h1>
