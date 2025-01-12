@@ -37,6 +37,7 @@ export const InputContent = ({
           className="w-full bg-transparent outline-none pl-2 text-lg"
           value={value}
           placeholder={placeholder}
+          onChange={onchange}
         />
         {icon && (
           <span className="mr-2 h-full items-center flex" onClick={onclick}>

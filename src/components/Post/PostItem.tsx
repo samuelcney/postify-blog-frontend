@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Icon from "../Icon/Icon";
 import axios from "axios";
-import { PostProps } from "@/services/post/postService";
+import { PostProps } from "@/services/posts/postService";
 
 export const PostItem = ({ ...post }: PostProps) => {
   return (

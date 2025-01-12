@@ -1,10 +1,19 @@
 import { useRouter } from "next/navigation";
 import { SideBar } from ".";
 import packageJson from "../../../package.json";
+import { useAuth } from "@/context/auth";
 const version = packageJson.version;
 
 export const LeftSideBar = () => {
   const router = useRouter();
+
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    logout();
+    router.push("/");
+  };
 
   return (
     <div className="w-full h-full flex flex-col justify-between">
@@ -16,7 +25,7 @@ export const LeftSideBar = () => {
         <SideBar.Item
           IconName="LogOut"
           Text="Sair"
-          onclick={() => router.push("/")}
+          onclick={() => handleLogout()}
         />
       </div>
       <div className="w-full items-center justify-center">

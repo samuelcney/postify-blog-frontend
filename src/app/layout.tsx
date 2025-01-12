@@ -1,7 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/context/auth/authContext";
+import { AuthProvider } from "@/context/auth";
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +28,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>{children}</AuthProvider>
+        <ToastContainer
+          autoClose={3000}
+          position="bottom-right"
+          pauseOnHover={false}
+          transition={Bounce}
+        />
       </body>
     </html>
   );
