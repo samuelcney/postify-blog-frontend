@@ -15,7 +15,7 @@ export const ButtonContent = ({
   isLoading,
 }: ButtonContentProps) => {
   return (
-    <div className="w-full rounded-lg p-2 flex bg-[--foreground] text-[--background] transition-all duration-[350ms] h-14 hover:scale-[1.01]">
+    <div className="w-full rounded-lg p-2 flex bg-[--foreground] text-[--background] transition-all duration-[350ms] h-12 hover:scale-[1.01]">
       <button
         className="w-full bg-transparent outline-none pl-2 text-xl font-bold justify-center items-center flex"
         onClick={onclick}
@@ -25,7 +25,9 @@ export const ButtonContent = ({
         {isLoading ? (
           <Icon name="LoaderCircle" className="animate-spin" size={40} />
         ) : (
-          <h1>{title}</h1>
+          <h1 className="text-[#171717] font-bold tracking-wider text-xl">
+            {title.toUpperCase()}
+          </h1>
         )}
       </button>
     </div>

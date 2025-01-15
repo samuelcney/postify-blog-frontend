@@ -30,7 +30,7 @@ export const InputContent = ({
         </div>
       )}
 
-      <div className="w-full border border-[--foreground] rounded-lg p-3 bg-transparent flex">
+      <div className="w-full border border-[--foreground] rounded-lg p-3 bg-transparent flex h-12">
         <input
           name={name}
           type={type}

@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
 import Icon from "../Icon/Icon";
-import axios from "axios";
 import { PostProps } from "@/services/posts/postService";
+import { getCategoryColor } from "@/utils/getCategoryColor";
 
 export const PostItem = ({ ...post }: PostProps) => {
+  const categoryColor = post?.category?.title
+    ? getCategoryColor(post.category.title)
+    : "#A8A8A8";
   return (
     <div className="w-[50%] border-[0.1px] border-[#A8A8A8] flex flex-col p-2 rounded-md">
       <div className="w-full p-2 flex gap-2 items-center">
@@ -42,7 +44,10 @@ export const PostItem = ({ ...post }: PostProps) => {
           </div>
 
           <div className="flex w-full items-center justify-end">
-            <p className="text-[#A8A8A8] text-xs italic">
+            <p
+              className={`text-xs italic tracking-wider`}
+              style={{ color: categoryColor }}
+            >
               # {post?.category.title}
             </p>
           </div>

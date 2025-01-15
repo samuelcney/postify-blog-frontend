@@ -2,6 +2,7 @@
 import { Feed } from "@/components/Feed";
 import { SideBar } from "@/components/Sidebar";
 import { PostItemList } from "@/components/Post/PostItemList";
+import Icon from "@/components/Icon/Icon";
 
 export default function Home() {
   return (
@@ -9,11 +10,14 @@ export default function Home() {
       <div className="w-full flex flex-1 h-screen flex-row">
         <SideBar.Root>
           <SideBar.Header>
-            <h1 className="text-[1.8rem] font-bold tracking-widest">Postify</h1>
+            <h1 className="text-[1.8rem] font-extrabold tracking-[0.2rem] mr-3">
+              Postify
+            </h1>
+            <Icon name="NotepadText" size="28" />
           </SideBar.Header>
 
           <SideBar.Content>
-            <SideBar.LeftSideBar />
+            <SideBar.LeftBar />
           </SideBar.Content>
         </SideBar.Root>
 
@@ -24,7 +28,9 @@ export default function Home() {
         </Feed.Root>
 
         <SideBar.Root isRight>
-          <SideBar.Content></SideBar.Content>
+          <SideBar.Content>
+            <SideBar.RightBar />
+          </SideBar.Content>
         </SideBar.Root>
       </div>
     </div>

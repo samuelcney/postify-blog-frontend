@@ -1,4 +1,5 @@
 import { LeftSideBar } from "./LeftSideBar";
+import { RightSideBar } from "./RightSideBar";
 import { SideBarContent } from "./SideBarContent";
 import { SideBarHeader } from "./SideBarHeader";
 import { SideBarItem } from "./SideBarItem";
@@ -9,5 +10,6 @@ export const SideBar = {
   Content: SideBarContent,
   Header: SideBarHeader,
   Item: SideBarItem,
-  LeftSideBar: LeftSideBar,
+  LeftBar: LeftSideBar,
+  RightBar: RightSideBar,
 };

@@ -11,7 +11,7 @@ export const ButtonRoot = ({
   isFullWidth,
   isRow,
 }: ButtonRootProps) => {
-  const isfullSize = isFullWidth ? "w-full" : "w-[80%]";
+  const isfullSize = isFullWidth ? "w-full" : "w-[75%]";
   const isFlexRow = isRow ? "flex-row" : "flex-col";
 
   return (

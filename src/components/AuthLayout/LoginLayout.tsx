@@ -57,7 +57,7 @@ export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
         />
       </Input.Root>
 
-      <div className="w-[80%] items-end flex justify-end mt-2">
+      <div className="w-[75%] items-end flex justify-end mt-2 mb-6">
         <p className="text-sm mr-1 hover:cursor-pointer tracking-wide">
           Esqueci minha senha
         </p>

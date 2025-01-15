@@ -2,8 +2,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/auth";
-import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastProvider } from "@/components/ToastProvider/ToastProvider";
+import Head from "next/head";
+import { Metadata } from "next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,25 +17,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata: Metadata = {
+  title: "Postify",
+  description: "A simple blog",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <meta name="Postify" content="A simple blog" />
-      <meta charSet="UTF-8" />
+    <html lang="pt-br">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>{children}</AuthProvider>
-        <ToastContainer
-          autoClose={3000}
-          position="bottom-right"
-          pauseOnHover={false}
-          transition={Bounce}
-        />
+        <ToastProvider />
       </body>
     </html>
   );
