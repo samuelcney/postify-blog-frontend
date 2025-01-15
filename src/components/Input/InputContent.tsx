@@ -9,6 +9,7 @@ interface InputProps {
   type?: string;
   labelText?: string;
   onclick?: () => void;
+  invert?: boolean;
 }
 export const InputContent = ({
   onchange,
@@ -19,18 +20,24 @@ export const InputContent = ({
   type,
   labelText,
   onclick,
+  invert,
 }: InputProps) => {
+  const isInverted = invert ? "invert" : "";
   return (
     <div className="flex flex-col w-full gap-1">
       {labelText && (
         <div className="flex flex-col w-full">
-          <label className="text-[--foreground] text-base ml-2 font-semibold">
+          <label
+            className={`text-[--foreground] text-base ml-2 font-semibold ${isInverted}`}
+          >
             {labelText}
           </label>
         </div>
       )}
 
-      <div className="w-full border border-[--foreground] rounded-lg p-3 bg-transparent flex h-10">
+      <div
+        className={`w-full border border-[--foreground] rounded-lg p-3 bg-transparent flex h-10 ${isInverted}`}
+      >
         <input
           name={name}
           type={type}

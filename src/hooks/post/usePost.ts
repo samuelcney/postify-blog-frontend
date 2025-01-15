@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { postService, PostProps } from "../../services/posts/postService";
+import { postService } from "../../services/posts/postService";
+import { PostProps, PostRequestDTO } from "@/types/PostInterfaces";
 
 export const usePosts = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
@@ -11,7 +12,7 @@ export const usePosts = () => {
     setError(null);
     try {
       const data = await postService.getAllPosts();
-      setPosts(data);
+      setPosts(data.reverse());
     } catch (err: any) {
       setError(err.message || "An error occurred while fetching posts.");
     } finally {
@@ -19,9 +20,18 @@ export const usePosts = () => {
     }
   };
 
+  const createPost = async (data: PostRequestDTO) => {
+    try {
+      const response = await postService.createPost(data);
+      setPosts((prevPosts) => [response, ...prevPosts]);
+    } catch (err: any) {
+      setError(err.message || "An error occurred while creating a post.");
+    }
+  };
+
   useEffect(() => {
     fetchPosts();
   }, []);
 
-  return { posts, isLoading, error, refetch: fetchPosts };
+  return { posts, isLoading, error, refetch: fetchPosts, createPost };
 };

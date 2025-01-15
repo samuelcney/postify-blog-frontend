@@ -8,7 +8,7 @@ interface ModalProps {
   children?: ReactNode;
 }
 
-export const Modal = ({ children, onClose, isOpen }: ModalProps) => {
+export const ModalRoot = ({ children, onClose, isOpen }: ModalProps) => {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -20,7 +20,7 @@ export const Modal = ({ children, onClose, isOpen }: ModalProps) => {
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className="w-[60%] h-[75%] bg-white rounded-lg p-6 flex flex-col max-w-2xl relative"
+            className="w-[60%] min-h-[75%] max-h-[75%] bg-white rounded-lg p-2 flex flex-col max-w-2xl relative"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
@@ -35,7 +35,7 @@ export const Modal = ({ children, onClose, isOpen }: ModalProps) => {
                 className="cursor-pointer"
               />
             </div>
-            {children}
+            <div className="flex-grow w-full">{children}</div>
           </motion.div>
         </motion.div>
       )}

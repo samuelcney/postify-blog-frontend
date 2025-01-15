@@ -1,5 +1,6 @@
+import { PostProps } from "@/types/PostInterfaces";
 import Icon from "../Icon/Icon";
-import { PostProps } from "@/services/posts/postService";
+
 import { formatPostDateTime } from "@/utils/formatPostDateTime";
 import { getCategoryColor } from "@/utils/getCategoryColor";
 
@@ -8,22 +9,22 @@ export const PostItem = ({ ...post }: PostProps) => {
     ? getCategoryColor(post.category.title)
     : "#A8A8A8";
   return (
-    <div className="w-[50%] border-[0.1px] border-[#A8A8A8] flex flex-col p-2 rounded-md">
+    <div className="w-[50%] border-[0.1px] border-lightgray	flex flex-col p-2 rounded-md">
       <div className="w-full p-2 flex gap-2 items-center">
         <Icon name="CircleUserRound" size="32" />
         <p className="text-sm">{post?.user?.username}</p>
-        <p className="text-[#A8A8A8] text-sm">•</p>
-        <p className="text-[#A8A8A8] text-sm italic tracking-wider">
-          {formatPostDateTime(post?.createdAt)}
+        <p className="text-lightgray text-sm">•</p>
+        <p className="text-lightgray text-xs italic tracking-wider">
+          {formatPostDateTime(post?.createdAt || "")}
         </p>
       </div>
 
       <div className="w-full justify-center flex py-2">
-        <div className="w-[97%] bg-[#A8A8A8] h-[0.1px]" />
+        <div className="w-[97%] bg-lightgray h-[0.1px]" />
       </div>
 
       <div className="flex flex-col justify-between h-full">
-        <p className="text-sm p-2 text-justify">{post?.content}</p>
+        <p className="text-sm p-2 text-justify text-wrap">{post?.content}</p>
 
         <div className="w-full flex p-2 gap-4 items-center">
           <div className="flex gap-4 w-full">

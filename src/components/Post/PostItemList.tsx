@@ -1,9 +1,10 @@
+import { useEffect } from "react";
 import Icon from "../Icon/Icon";
 import { PostItem } from "./PostItem";
 import { usePosts } from "@/hooks/post/usePost";
 
 export const PostItemList = () => {
-  const { posts, isLoading, error } = usePosts();
+  const { posts, isLoading } = usePosts();
 
   return (
     <>

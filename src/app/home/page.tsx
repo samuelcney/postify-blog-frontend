@@ -3,8 +3,7 @@ import { Feed } from "@/components/Feed";
 import { SideBar } from "@/components/Sidebar";
 import { PostItemList } from "@/components/Post/PostItemList";
 import Icon from "@/components/Icon/Icon";
-import { Modal } from "@/components/Modal/Modal";
-import { useState } from "react";
+import { Modal } from "@/components/Modal/index";
 import { useModal } from "@/context/modal";
 
 export default function Home() {
@@ -38,7 +37,9 @@ export default function Home() {
           </SideBar.Content>
         </SideBar.Root>
       </div>
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
+      <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
+        <Modal.CreatePost />
+      </Modal.Root>
     </div>
   );
 }
