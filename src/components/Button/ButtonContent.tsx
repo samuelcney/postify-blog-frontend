@@ -15,19 +15,17 @@ export const ButtonContent = ({
   isLoading,
 }: ButtonContentProps) => {
   return (
-    <div className="w-full rounded-lg p-2 flex bg-[--foreground] text-[--background] transition-all duration-[350ms] h-10 hover:scale-[1.01]">
+    <div className="w-full">
       <button
-        className="w-full bg-transparent outline-none pl-2 text-xl font-bold justify-center items-center flex"
+        className="w-full h-12 bg-[--foreground] text-[--background] rounded-lg flex items-center justify-center font-bold text-lg tracking-wide transition-transform duration-300 hover:scale-[1.03] focus:ring-2 focus:ring-[--highlight] disabled:opacity-60 disabled:cursor-not-allowed"
         onClick={onclick}
         type={type}
         disabled={isLoading}
       >
         {isLoading ? (
-          <Icon name="LoaderCircle" className="animate-spin" size={40} />
+          <Icon name="LoaderCircle" className="animate-spin" size={20} />
         ) : (
-          <h1 className="text-[#171717] font-bold tracking-wider text-xl">
-            {title.toUpperCase()}
-          </h1>
+          <span>{title}</span>
         )}
       </button>
     </div>

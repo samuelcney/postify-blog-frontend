@@ -20,7 +20,7 @@ export const InputTextArea = ({
 }: InputProps) => {
   const isInverted = invert ? "invert" : "";
   return (
-    <div className="flex flex-col w-full gap-1 h-full">
+    <div className="flex flex-col w-full gap-1 flex-1">
       {labelText && (
         <div className="flex flex-col w-full">
           <label className={`text-[--foreground] text-base ml-2 ${isInverted}`}>
@@ -30,12 +30,12 @@ export const InputTextArea = ({
       )}
 
       <div
-        className={`w-full border border-[--foreground] rounded-lg p-3 bg-transparent flex h-full ${isInverted}`}
+        className={`w-full h-[220px] border border-[--foreground] rounded-lg p-3 ${isInverted} bg-background`}
       >
         <textarea
           name={name}
           onChange={onchange}
-          className="w-full bg-transparent outline-none pl-2 text-lg h-52 resize-none"
+          className="w-full bg-background outline-none pl-2 text-lg h-full resize-none"
           value={value}
           placeholder={placeholder}
         />

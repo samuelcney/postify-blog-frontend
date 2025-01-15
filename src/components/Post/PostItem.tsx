@@ -24,7 +24,12 @@ export const PostItem = ({ ...post }: PostProps) => {
       </div>
 
       <div className="flex flex-col justify-between h-full">
-        <p className="text-sm p-2 text-justify text-wrap">{post?.content}</p>
+        <p
+          className="text-sm p-2 text-justify break-words"
+          style={{ wordBreak: "break-word" }}
+        >
+          {post?.content}
+        </p>
 
         <div className="w-full flex p-2 gap-4 items-center">
           <div className="flex gap-4 w-full">

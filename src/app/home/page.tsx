@@ -5,9 +5,16 @@ import { PostItemList } from "@/components/Post/PostItemList";
 import Icon from "@/components/Icon/Icon";
 import { Modal } from "@/components/Modal/index";
 import { useModal } from "@/context/modal";
+import { useState } from "react";
 
 export default function Home() {
   const { isModalOpen, closeModal } = useModal();
+
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleRefreshFeed = () => {
+    setRefreshKey((prev) => prev + 1);
+  };
 
   return (
     <div className="w-full flex flex-1 h-screen font-[family-name:var(--font-geist-sans)">
@@ -27,7 +34,7 @@ export default function Home() {
 
         <Feed.Root>
           <Feed.Content>
-            <PostItemList />
+            <PostItemList key={refreshKey} />
           </Feed.Content>
         </Feed.Root>
 
@@ -38,7 +45,7 @@ export default function Home() {
         </SideBar.Root>
       </div>
       <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
-        <Modal.CreatePost />
+        <Modal.CreatePost onPostCreated={handleRefreshFeed} />
       </Modal.Root>
     </div>
   );
