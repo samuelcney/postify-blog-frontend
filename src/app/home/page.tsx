@@ -3,8 +3,13 @@ import { Feed } from "@/components/Feed";
 import { SideBar } from "@/components/Sidebar";
 import { PostItemList } from "@/components/Post/PostItemList";
 import Icon from "@/components/Icon/Icon";
+import { Modal } from "@/components/Modal/Modal";
+import { useState } from "react";
+import { useModal } from "@/context/modal";
 
 export default function Home() {
+  const { isModalOpen, closeModal } = useModal();
+
   return (
     <div className="w-full flex flex-1 h-screen font-[family-name:var(--font-geist-sans)">
       <div className="w-full flex flex-1 h-screen flex-row">
@@ -33,6 +38,7 @@ export default function Home() {
           </SideBar.Content>
         </SideBar.Root>
       </div>
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }

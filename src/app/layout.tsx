@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastProvider } from "@/components/ToastProvider/ToastProvider";
 import Head from "next/head";
 import { Metadata } from "next";
+import { ModalProvider } from "@/context/modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </AuthProvider>
         <ToastProvider />
       </body>
     </html>

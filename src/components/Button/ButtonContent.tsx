@@ -15,7 +15,7 @@ export const ButtonContent = ({
   isLoading,
 }: ButtonContentProps) => {
   return (
-    <div className="w-full rounded-lg p-2 flex bg-[--foreground] text-[--background] transition-all duration-[350ms] h-12 hover:scale-[1.01]">
+    <div className="w-full rounded-lg p-2 flex bg-[--foreground] text-[--background] transition-all duration-[350ms] h-10 hover:scale-[1.01]">
       <button
         className="w-full bg-transparent outline-none pl-2 text-xl font-bold justify-center items-center flex"
         onClick={onclick}

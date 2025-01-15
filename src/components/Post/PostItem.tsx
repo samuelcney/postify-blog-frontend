@@ -1,5 +1,6 @@
 import Icon from "../Icon/Icon";
 import { PostProps } from "@/services/posts/postService";
+import { formatPostDateTime } from "@/utils/formatPostDateTime";
 import { getCategoryColor } from "@/utils/getCategoryColor";
 
 export const PostItem = ({ ...post }: PostProps) => {
@@ -12,13 +13,8 @@ export const PostItem = ({ ...post }: PostProps) => {
         <Icon name="CircleUserRound" size="32" />
         <p className="text-sm">{post?.user?.username}</p>
         <p className="text-[#A8A8A8] text-sm">•</p>
-        <p className="text-[#A8A8A8] text-sm italic">
-          {post?.createdAt.split(" ").map((part, index) => (
-            <span className="" key={index}>
-              {part}
-              {index === 0 && <span className="mx-[0.30rem]">às</span>}
-            </span>
-          ))}
+        <p className="text-[#A8A8A8] text-sm italic tracking-wider">
+          {formatPostDateTime(post?.createdAt)}
         </p>
       </div>
 

@@ -12,7 +12,7 @@ export const InputRoot = ({ children, isFullWidth, isRow }: InputRootProps) => {
 
   return (
     <div
-      className={`flex ${isFlexRow} ${isfullSize} gap-8 items-center justify-between`}
+      className={`flex ${isFlexRow} ${isfullSize} gap-6 items-center justify-between`}
     >
       {children}
     </div>

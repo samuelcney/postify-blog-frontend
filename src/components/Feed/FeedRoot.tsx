@@ -4,6 +4,6 @@ interface FeedRootProps {
 
 export const FeedRoot = ({ children }: FeedRootProps) => {
   return (
-    <div className="h-full flex flex-[4] justify-center pt-4">{children}</div>
+    <div className="h-full flex flex-[4] justify-center pt-8">{children}</div>
   );
 };

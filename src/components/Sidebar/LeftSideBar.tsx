@@ -2,11 +2,13 @@ import { useRouter } from "next/navigation";
 import { SideBar } from ".";
 import packageJson from "../../../package.json";
 import { useAuth } from "@/context/auth";
+import { useModal } from "@/context/modal";
 const version = packageJson.version;
 
 export const LeftSideBar = () => {
   const router = useRouter();
 
+  const { openModal } = useModal();
   const { logout } = useAuth();
 
   const handleLogout = async () => {
@@ -22,6 +24,11 @@ export const LeftSideBar = () => {
           IconName="House"
           Text="Página Inicial"
           onclick={() => router.refresh()}
+        />
+        <SideBar.Item
+          IconName="CircleFadingPlus"
+          Text="Novo Post"
+          onclick={openModal}
         />
         <SideBar.Item IconName="Search" Text="Pesquisa" />
         <SideBar.Item IconName="User" Text="Perfil" />
