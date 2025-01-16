@@ -11,6 +11,8 @@ export const getCategoryColor = (category: string) => {
       return "#F9CFF2";
     case "esportes":
       return "#FEEA00";
+    case "diversão":
+      return "#FFB900";
     default:
       return "#A8A8A8";
   }

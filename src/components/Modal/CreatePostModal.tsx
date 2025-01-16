@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Input } from "../Input";
 import { usePosts } from "@/hooks/post/usePost";
 import { useAuth } from "@/context/auth";
 import { Button } from "../Button";
 import { useModal } from "@/context/modal";
-import { useRouter } from "next/navigation";
+import { Select } from "../Select/Select";
 
 export const CreatePostModal = ({
   onPostCreated,
@@ -16,7 +16,6 @@ export const CreatePostModal = ({
   const { createPost, isLoading, refetch } = usePosts();
   const { user } = useAuth();
   const { closeModal } = useModal();
-  const router = useRouter();
 
   const handleCreatePost = async () => {
     try {
@@ -40,14 +39,8 @@ export const CreatePostModal = ({
       <h2 className="text-2xl font-bold text-[--foreground] mb-4">
         Criar Postagem
       </h2>
-      <select className="w-full border border-[--foreground] rounded-lg p-3 bg-[--background] flex h-12 outline-none text-[--foreground] focus:ring-2 focus:ring-[--highlight] mb-6">
-        <option value="1" className="bg-background text-[--foreground]">
-          Público
-        </option>
-        <option value="2" className="bg-background text-[--foreground]">
-          Privado
-        </option>
-      </select>
+
+      <Select labelText="Escolha a categoria da sua postagem:" />
 
       <Input.TextArea
         name="postContent"
