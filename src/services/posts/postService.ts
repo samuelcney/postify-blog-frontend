@@ -14,6 +14,9 @@ const createPost = async (data: {
   userId: string | number;
   categoryId: number;
 }) => {
+  if (!data.content || !data.userId || !data.categoryId) {
+    throw new Error("Missing required fields");
+  }
   try {
     const response = await axiosInstance.post("/posts", {
       content: data.content,

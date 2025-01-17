@@ -36,12 +36,12 @@ export const InputContent = ({
       )}
 
       <div
-        className={`w-full border border-[--foreground] rounded-lg p-3 bg-transparent flex h-10 ${isInverted}`}
+        className={`w-full border border-[--foreground] rounded-lg bg-transparent p-1 flex h-10 ${isInverted}`}
       >
         <input
           name={name}
           type={type}
-          className="w-full bg-transparent outline-none pl-2 text-lg"
+          className="w-full bg-transparent outline-none px-2 py-3 text-lg"
           value={value}
           placeholder={placeholder}
           onChange={onchange}

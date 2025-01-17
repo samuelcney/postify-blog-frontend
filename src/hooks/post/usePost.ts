@@ -21,6 +21,8 @@ export const usePosts = () => {
   };
 
   const createPost = async (data: PostRequestDTO) => {
+    if (!data.content || !data.userId || !data.categoryId)
+      throw new Error("Preencha todos os campos.");
     try {
       const response = await postService.createPost(data);
       setPosts((prevPosts) => [response, ...prevPosts]);

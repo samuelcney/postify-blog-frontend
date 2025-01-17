@@ -5,6 +5,8 @@ import { useAuth } from "@/context/auth";
 import { Button } from "../Button";
 import { useModal } from "@/context/modal";
 import { Select } from "../Select/Select";
+import { useCategory } from "@/hooks/post/useCategory";
+import { error } from "console";
 
 export const CreatePostModal = ({
   onPostCreated,
@@ -12,23 +14,31 @@ export const CreatePostModal = ({
   onPostCreated: () => void;
 }) => {
   const [textContent, setTextContent] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const { createPost, isLoading, refetch } = usePosts();
+  const { categories, error } = useCategory();
   const { user } = useAuth();
   const { closeModal } = useModal();
 
   const handleCreatePost = async () => {
+    if (!categoryId || !textContent) {
+      setIsError(true);
+      return;
+    }
     try {
       await createPost({
         userId: user?.id,
         content: textContent,
-        categoryId: 2,
+        categoryId: Number(categoryId),
       });
       await refetch();
       onPostCreated();
     } catch (err: any) {
       console.log(err.message);
     } finally {
+      setCategoryId("");
       setTextContent("");
       closeModal();
     }
@@ -40,13 +50,21 @@ export const CreatePostModal = ({
         Criar Postagem
       </h2>
 
-      <Select labelText="Escolha a categoria da sua postagem:" />
+      <Select
+        labelText="Escolha a categoria de sua postagem:"
+        data={categories}
+        onchange={(e) => setCategoryId(e)}
+        errorMessage="Selecione uma categoria"
+        isError={isError && !categoryId}
+      />
 
       <Input.TextArea
         name="postContent"
         labelText="O que você gostaria de compartilhar com seus amigos?"
         onchange={(e) => setTextContent(e.target.value)}
         value={textContent}
+        errorMessage="Campo obrigatório"
+        isError={isError && !textContent}
       />
 
       <Button.Root isFullWidth>

@@ -9,6 +9,8 @@ interface InputProps {
   type?: string;
   labelText?: string;
   invert?: boolean;
+  errorMessage?: string;
+  isError?: boolean;
 }
 export const InputTextArea = ({
   onchange,
@@ -17,6 +19,8 @@ export const InputTextArea = ({
   name,
   labelText,
   invert,
+  isError,
+  errorMessage,
 }: InputProps) => {
   const isInverted = invert ? "invert" : "";
   return (
@@ -30,7 +34,9 @@ export const InputTextArea = ({
       )}
 
       <div
-        className={`w-full h-[220px] border border-[--foreground] rounded-lg p-3 ${isInverted} bg-background`}
+        className={`w-full h-[220px] border border-[--foreground] rounded-lg p-3 ${isInverted} bg-background ${
+          isError ? "border-red-600" : ""
+        }`}
       >
         <textarea
           name={name}
@@ -40,6 +46,9 @@ export const InputTextArea = ({
           placeholder={placeholder}
         />
       </div>
+      {isError && (
+        <span className="text-red-600 text-sm ml-2">{errorMessage}</span>
+      )}
     </div>
   );
 };
