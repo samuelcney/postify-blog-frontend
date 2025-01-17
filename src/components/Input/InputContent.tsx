@@ -28,12 +28,10 @@ export const InputContent = ({
 }: InputProps) => {
   const isInverted = invert ? "invert" : "";
   return (
-    <div className="flex flex-col w-full gap-1">
+    <div className="flex flex-col w-full gap-2">
       {labelText && (
         <div className="flex flex-col w-full">
-          <label
-            className={`text-[--foreground] text-base ml-2 font-semibold ${isInverted}`}
-          >
+          <label className={`text-[--foreground] text-sm ml-1 ${isInverted}`}>
             {labelText}
           </label>
         </div>

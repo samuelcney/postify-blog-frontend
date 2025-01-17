@@ -7,7 +7,7 @@ import { notify } from "../Toast/Toast";
 import { useRequestState } from "@/hooks/useRequestState";
 
 export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
-  const size = 24;
+  const size = 20;
   const [hidePassword, setHidePassword] = useState(true);
   const { loading, setError, setLoading, isError } = useRequestState();
 
@@ -57,7 +57,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
     }
   };
   return (
-    <div className="flex w-full h-full flex-col items-center justify-center gap-2">
+    <div className="flex w-full h-full flex-col items-center justify-center ">
       <Input.Root>
         <Input.Content
           labelText="Email"
@@ -122,16 +122,15 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
           onclick={handleRegister}
           isLoading={loading}
         />
+        <div className="w-[80%] flex justify-center">
+          <p
+            className="text-sm mr-1 hover:cursor-pointer tracking-wide hover:underline"
+            onClick={onToggle}
+          >
+            Já possui uma conta? Faça login aqui
+          </p>
+        </div>
       </Button.Root>
-
-      <div className="w-[80%] items-end flex justify-center mt-8">
-        <p
-          className="text-sm mr-1 hover:cursor-pointer tracking-wide hover:underline"
-          onClick={onToggle}
-        >
-          Já possui uma conta? Faça login aqui
-        </p>
-      </div>
     </div>
   );
 };

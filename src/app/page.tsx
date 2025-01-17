@@ -11,7 +11,9 @@ export default function Home() {
 
   return (
     <div
-      className={`w-full flex flex-1 h-screen font-[family-name:var(--font-geist-sans) justify-center items-center background`}
+      className={`w-full flex flex-1 h-screen font-[family-name:var(--font-geist-sans) ${
+        isRegister ? "justify-start" : "justify-end"
+      }	 items-center background`}
     >
       <Auth.Root isRegister={isRegister}>
         {isRegister ? (
