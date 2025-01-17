@@ -2,13 +2,20 @@ import { useState } from "react";
 import { Button } from "../Button";
 import Icon from "../Icon/Icon";
 import { Input } from "../Input";
+import { singUp } from "@/services/auth/authService";
+import { notify } from "../Toast/Toast";
+import { useRequestState } from "@/hooks/useRequestState";
 
 export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
   const size = 24;
   const [hidePassword, setHidePassword] = useState(true);
+  const { loading, setError, setLoading, isError } = useRequestState();
+
   const [formData, setFormData] = useState({
     email: "",
     username: "",
+    firstName: "",
+    lastName: "",
     password: "",
     confirmPassword: "",
   });
@@ -19,8 +26,38 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
       [field]: value,
     });
   };
+
+  const handleRegister = async () => {
+    setLoading(true);
+
+    if (formData.password !== formData.confirmPassword) {
+      notify("As senhas não coincidem", "error");
+      return;
+    }
+
+    if (
+      !formData.email ||
+      !formData.password ||
+      !formData.username ||
+      !formData.firstName ||
+      !formData.lastName
+    ) {
+      setError(true);
+    }
+    try {
+      const userData = await singUp(formData);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      notify("Cadastro realizado com sucesso", "success");
+      onToggle();
+      return userData;
+    } catch (error: any) {
+      notify(error, "error");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <div className="flex w-full h-full flex-col items-center justify-center">
+    <div className="flex w-full h-full flex-col items-center justify-center gap-2">
       <Input.Root>
         <Input.Content
           labelText="Email"
@@ -28,6 +65,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
           icon={<Icon name="AtSign" size={size} />}
           onchange={(text) => handleInputChange("email", text.target.value)}
           type="text"
+          isError={!formData.email && isError}
         />
 
         <Input.Content
@@ -36,6 +74,23 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
           icon={<Icon name="User" size={size} />}
           onchange={(text) => handleInputChange("username", text.target.value)}
           type="text"
+          isError={!formData.username && isError}
+        />
+
+        <Input.Content
+          labelText="Primeiro Nome"
+          name="firstName"
+          onchange={(text) => handleInputChange("firstName", text.target.value)}
+          type="text"
+          isError={!formData.firstName && isError}
+        />
+
+        <Input.Content
+          labelText="Sobrenome"
+          name="lastName"
+          onchange={(text) => handleInputChange("lastName", text.target.value)}
+          type="text"
+          isError={!formData.lastName && isError}
         />
 
         <Input.Content
@@ -45,6 +100,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
           onchange={(text) => handleInputChange("password", text.target.value)}
           type={hidePassword ? "password" : "text"}
           onclick={() => setHidePassword(!hidePassword)}
+          isError={!formData.password && isError}
         />
 
         <Input.Content
@@ -56,11 +112,16 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
           }
           type={hidePassword ? "password" : "text"}
           onclick={() => setHidePassword(!hidePassword)}
+          isError={!formData.confirmPassword && isError}
         />
       </Input.Root>
 
       <Button.Root>
-        <Button.Content title="Cadastrar" />
+        <Button.Content
+          title="Cadastrar"
+          onclick={handleRegister}
+          isLoading={loading}
+        />
       </Button.Root>
 
       <div className="w-[80%] items-end flex justify-center mt-8">

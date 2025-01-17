@@ -13,8 +13,11 @@ export const useCategory = () => {
     try {
       const data = await categoryService.getAllCategories();
       setCategories(data);
-    } catch (err: any) {
-      setError(err.message || "An error occurred while fetching categories.");
+    } catch (error: any) {
+      setError(
+        error.response.data.message ||
+          "An error occurred while fetching categories."
+      );
     } finally {
       setIsLoading(false);
     }

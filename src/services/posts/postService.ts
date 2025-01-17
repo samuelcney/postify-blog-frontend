@@ -25,7 +25,9 @@ const createPost = async (data: {
     });
     return response.data;
   } catch (error: any) {
-    console.log("service", error);
+    return Promise.reject(
+      error.response.data.error || "Erro ao criar um post."
+    );
   }
 };
 

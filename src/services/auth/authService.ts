@@ -15,3 +15,26 @@ export const signIn = async (data: User) => {
     );
   }
 };
+
+export const singUp = async (data: UserCreateDTO) => {
+  if (
+    !data.email ||
+    !data.password ||
+    !data.username ||
+    !data.firstName ||
+    !data.lastName
+  )
+    return Promise.reject("Preencha todos os campos");
+  try {
+    const response = await axiosInstance.post("/users", {
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      firstName: data.firstName,
+      lastName: data.lastName,
+    });
+    return response.data;
+  } catch (error: any) {
+    return Promise.reject(error.response.data.message);
+  }
+};

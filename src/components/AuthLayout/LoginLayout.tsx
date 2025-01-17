@@ -6,21 +6,23 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth";
 import { signIn } from "@/services/auth/authService";
 import { toast, TypeOptions } from "react-toastify";
+import { notify } from "../Toast/Toast";
+import { useRequestState } from "@/hooks/useRequestState";
 
 export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
   const [hidePassword, setHidePassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const notify = (message: string, type: TypeOptions) =>
-    toast(message, { type });
+  const { loading, setLoading, isError, setError } = useRequestState();
 
   const { login } = useAuth();
   const router = useRouter();
 
   const handleLogin = async () => {
     setLoading(true);
+    if (!email || !password) {
+      setError(true);
+    }
     try {
       const userData = await signIn({ email, password });
 
@@ -28,14 +30,14 @@ export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
       login(userData);
       router.push("/home");
     } catch (error: any) {
-      notify(error, "error");
+      setError(true);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex w-full h-full flex-col items-center justify-center">
+    <div className="flex w-full h-full flex-col items-center justify-center gap-2">
       <Input.Root>
         <Input.Content
           labelText="Email"
@@ -44,6 +46,7 @@ export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
           onchange={(e) => setEmail(e.target.value)}
           type="text"
           value={email}
+          isError={!email && isError}
         />
 
         <Input.Content
@@ -54,6 +57,7 @@ export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
           type={hidePassword ? "password" : "text"}
           onclick={() => setHidePassword(!hidePassword)}
           value={password}
+          isError={!password && isError}
         />
       </Input.Root>
 

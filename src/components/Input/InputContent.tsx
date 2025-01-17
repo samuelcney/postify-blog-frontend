@@ -10,6 +10,8 @@ interface InputProps {
   labelText?: string;
   onclick?: () => void;
   invert?: boolean;
+  errorMessage?: string;
+  isError?: boolean;
 }
 export const InputContent = ({
   onchange,
@@ -21,6 +23,8 @@ export const InputContent = ({
   labelText,
   onclick,
   invert,
+  errorMessage,
+  isError,
 }: InputProps) => {
   const isInverted = invert ? "invert" : "";
   return (
@@ -36,7 +40,9 @@ export const InputContent = ({
       )}
 
       <div
-        className={`w-full border border-[--foreground] rounded-lg bg-transparent p-1 flex h-10 ${isInverted}`}
+        className={`w-full border border-[--foreground] rounded-lg bg-transparent p-1 flex h-10 ${isInverted} ${
+          isError ? "border-red-600" : ""
+        }`}
       >
         <input
           name={name}
@@ -52,6 +58,9 @@ export const InputContent = ({
           </span>
         )}
       </div>
+      {isError && (
+        <span className="text-red-600 text-sm ml-2">{errorMessage}</span>
+      )}
     </div>
   );
 };

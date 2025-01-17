@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/auth";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastProvider } from "@/components/ToastProvider/ToastProvider";
+import { ToastProvider } from "@/components/Toast/ToastProvider";
 import Head from "next/head";
 import { Metadata } from "next";
 import { ModalProvider } from "@/context/modal";

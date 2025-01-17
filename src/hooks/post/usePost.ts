@@ -26,8 +26,11 @@ export const usePosts = () => {
     try {
       const response = await postService.createPost(data);
       setPosts((prevPosts) => [response, ...prevPosts]);
-    } catch (err: any) {
-      setError(err.message || "An error occurred while creating a post.");
+    } catch (error: any) {
+      setError(
+        error.response.data.message ||
+          "An error occurred while creating a post."
+      );
     }
   };
 

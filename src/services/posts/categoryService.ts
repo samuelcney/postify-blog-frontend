@@ -5,7 +5,9 @@ const getAllCategories = async () => {
     const response = await axiosInstance.get("/categories");
     return response.data;
   } catch (error: any) {
-    console.log(error.message);
+    return Promise.reject(
+      error.response.data.error || "Erro ao carregar as categorias."
+    );
   }
 };
 

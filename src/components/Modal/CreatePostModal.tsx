@@ -7,6 +7,8 @@ import { useModal } from "@/context/modal";
 import { Select } from "../Select/Select";
 import { useCategory } from "@/hooks/post/useCategory";
 import { error } from "console";
+import { notify } from "../Toast/Toast";
+import { useRequestState } from "@/hooks/useRequestState";
 
 export const CreatePostModal = ({
   onPostCreated,
@@ -15,18 +17,19 @@ export const CreatePostModal = ({
 }) => {
   const [textContent, setTextContent] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [isError, setIsError] = useState(false);
+  const { isError, setError, loading, setLoading } = useRequestState();
 
-  const { createPost, isLoading, refetch } = usePosts();
+  const { createPost, refetch } = usePosts();
   const { categories, error } = useCategory();
   const { user } = useAuth();
   const { closeModal } = useModal();
 
   const handleCreatePost = async () => {
     if (!categoryId || !textContent) {
-      setIsError(true);
+      setError(true);
       return;
     }
+    setLoading(true);
     try {
       await createPost({
         userId: user?.id,
@@ -34,10 +37,12 @@ export const CreatePostModal = ({
         categoryId: Number(categoryId),
       });
       await refetch();
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       onPostCreated();
     } catch (err: any) {
-      console.log(err.message);
+      notify(error!!, "error");
     } finally {
+      setLoading(false);
       setCategoryId("");
       setTextContent("");
       closeModal();
@@ -71,7 +76,7 @@ export const CreatePostModal = ({
         <Button.Content
           onclick={handleCreatePost}
           title="Compartilhar"
-          isLoading={isLoading}
+          isLoading={loading}
         />
       </Button.Root>
     </div>
