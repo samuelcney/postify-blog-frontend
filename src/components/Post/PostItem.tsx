@@ -3,20 +3,46 @@ import Icon from "../Icon/Icon";
 
 import { formatPostDateTime } from "@/utils/formatPostDateTime";
 import { getCategoryColor } from "@/utils/getCategoryColor";
+import { useState } from "react";
 
 export const PostItem = ({ ...post }: PostProps) => {
   const categoryColor = post?.category?.title
     ? getCategoryColor(post.category.title)
     : "#A8A8A8";
+
+  const [openOptions, setOpenOptions] = useState(false);
+
   return (
     <div className="w-[50%] border-[0.1px] border-lightgray	flex flex-col p-2 rounded-md">
-      <div className="w-full p-2 flex gap-2 items-center">
-        <Icon name="CircleUserRound" size="32" />
-        <p className="text-sm">{post?.user?.username}</p>
-        <p className="text-lightgray text-sm">•</p>
-        <p className="text-lightgray text-xs italic tracking-wider">
-          {formatPostDateTime(post?.createdAt || "")}
-        </p>
+      <div className="w-full justify-between items-center flex">
+        <div className="p-2 flex gap-2 items-center">
+          <Icon name="CircleUserRound" size="32" />
+          <p className="text-sm">{post?.user?.username}</p>
+          <p className="text-lightgray text-sm">•</p>
+          <p className="text-lightgray text-xs italic tracking-wider">
+            {formatPostDateTime(post?.createdAt || "")}
+          </p>
+        </div>
+
+        <span className="relative   cursor-pointer mr-2">
+          <Icon
+            name="Ellipsis"
+            size="32"
+            onClick={() => {
+              setOpenOptions(!openOptions);
+            }}
+          />
+
+          {openOptions && (
+            <span className="absolute right-[-480%] top-[-50%] bg-[#171717] text-white p-2 rounded-md shadow-md w-[130px] z-50 cursor-pointer">
+              <p>Ver detalhes</p>
+              <span className="flex flex-row items-center gap-2">
+                <p>Excluir</p>
+                <Icon name="Trash2" size={18} />
+              </span>
+            </span>
+          )}
+        </span>
       </div>
 
       <div className="w-full justify-center flex py-2">
@@ -36,12 +62,12 @@ export const PostItem = ({ ...post }: PostProps) => {
             <Icon
               name="Heart"
               size={28}
-              className="hover:opacity-50 transition duration-200"
+              className="hover:opacity-50 transition duration-200 cursor-pointer"
             />
             <Icon
               name="MessageCircle"
               size={28}
-              className="hover:opacity-50 transition duration-200"
+              className="hover:opacity-50 transition duration-200 cursor-pointer"
             />
           </div>
 

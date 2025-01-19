@@ -21,10 +21,13 @@ export default function Home() {
       <div className="w-full flex flex-1 h-screen flex-row">
         <SideBar.Root>
           <SideBar.Header>
-            <h1 className="text-[1.8rem] font-extrabold tracking-[0.2rem] mr-3">
+            <h1
+              className="text-[2rem] font-extrabold tracking-[0.22rem] mr-3 text-transparent"
+              style={{ WebkitTextStroke: "2px #ffffff" }}
+            >
               Postify
             </h1>
-            <Icon name="NotepadText" size="28" />
+            <Icon name="Mails" size="30" />
           </SideBar.Header>
 
           <SideBar.Content>
