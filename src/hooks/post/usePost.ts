@@ -34,9 +34,28 @@ export const usePosts = () => {
     }
   };
 
+  const deletePost = async (id: number) => {
+    try {
+      await postService.deletePost(id);
+      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+    } catch (error: any) {
+      setError(
+        error.response.data.message ||
+          "An error occurred while deleting the post."
+      );
+    }
+  };
+
   useEffect(() => {
     fetchPosts();
   }, []);
 
-  return { posts, isLoading, error, refetch: fetchPosts, createPost };
+  return {
+    posts,
+    isLoading,
+    error,
+    refetch: fetchPosts,
+    createPost,
+    deletePost,
+  };
 };

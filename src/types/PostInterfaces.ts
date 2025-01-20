@@ -5,7 +5,7 @@ export interface PostRequestDTO {
 }
 
 export interface PostProps {
-  id?: number | string;
+  id: number;
   content: string;
   user: { id: number | string; username?: string };
   createdAt?: string;

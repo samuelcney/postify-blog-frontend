@@ -6,6 +6,10 @@ import { usePosts } from "@/hooks/post/usePost";
 export const PostItemList = () => {
   const { posts, isLoading } = usePosts();
 
+  if (posts.length === 0) {
+    return <div>Parece que ainda não tem nenhum post por aqui...</div>;
+  }
+
   return (
     <>
       {isLoading && (

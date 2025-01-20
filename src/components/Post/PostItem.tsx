@@ -4,6 +4,9 @@ import Icon from "../Icon/Icon";
 import { formatPostDateTime } from "@/utils/formatPostDateTime";
 import { getCategoryColor } from "@/utils/getCategoryColor";
 import { useState } from "react";
+import { useAuth } from "@/context/auth";
+import { usePosts } from "@/hooks/post/usePost";
+import { notify } from "../Toast/Toast";
 
 export const PostItem = ({ ...post }: PostProps) => {
   const categoryColor = post?.category?.title
@@ -11,9 +14,20 @@ export const PostItem = ({ ...post }: PostProps) => {
     : "#A8A8A8";
 
   const [openOptions, setOpenOptions] = useState(false);
+  const { user } = useAuth();
+  const { deletePost } = usePosts();
+
+  const handleDeletePost = async (id: number) => {
+    if (id === undefined) return;
+    try {
+      await deletePost(id);
+    } catch (err: any) {
+      notify(err, "error");
+    }
+  };
 
   return (
-    <div className="w-[50%] border-[0.1px] border-lightgray	flex flex-col p-2 rounded-md">
+    <div className="w-1/2 border-[0.1px] border-lightgray	flex flex-col p-2 rounded-md">
       <div className="w-full justify-between items-center flex">
         <div className="p-2 flex gap-2 items-center">
           <Icon name="CircleUserRound" size="32" />
@@ -24,7 +38,7 @@ export const PostItem = ({ ...post }: PostProps) => {
           </p>
         </div>
 
-        <span className="relative   cursor-pointer mr-2">
+        <span className="relative cursor-pointer mr-2">
           <Icon
             name="Ellipsis"
             size="32"
@@ -36,10 +50,16 @@ export const PostItem = ({ ...post }: PostProps) => {
           {openOptions && (
             <span className="absolute right-[-480%] top-[-50%] bg-[#171717] text-white p-2 rounded-md shadow-md w-[130px] z-50 cursor-pointer">
               <p>Ver detalhes</p>
-              <span className="flex flex-row items-center gap-2">
-                <p>Excluir</p>
-                <Icon name="Trash2" size={18} />
-              </span>
+
+              {user?.id === post?.user?.id && (
+                <span
+                  className="flex flex-row items-center gap-2"
+                  onClick={() => handleDeletePost(Number(post?.id))}
+                >
+                  <p>Excluir</p>
+                  <Icon name="Trash2" size={18} />
+                </span>
+              )}
             </span>
           )}
         </span>

@@ -31,7 +31,19 @@ const createPost = async (data: {
   }
 };
 
+const deletePost = async (id: number) => {
+  try {
+    const response = await axiosInstance.delete(`/posts/${id}`);
+    return response.data;
+  } catch (error: any) {
+    return Promise.reject(
+      error.response.data.error || "Erro ao deletar o post."
+    );
+  }
+};
+
 export const postService = {
   getAllPosts,
   createPost,
+  deletePost,
 };

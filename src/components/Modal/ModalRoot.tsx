@@ -6,9 +6,19 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children?: ReactNode;
+  widthPercentage?: number;
+  heightPercentage?: number;
 }
 
-export const ModalRoot = ({ children, onClose, isOpen }: ModalProps) => {
+export const ModalRoot = ({
+  children,
+  onClose,
+  isOpen,
+  widthPercentage,
+  heightPercentage,
+}: ModalProps) => {
+  const widthPerc = widthPercentage ? widthPercentage : 40;
+  const heightPerc = heightPercentage ? heightPercentage : 55;
   return (
     <AnimatePresence>
       {isOpen && (
@@ -20,7 +30,7 @@ export const ModalRoot = ({ children, onClose, isOpen }: ModalProps) => {
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className="bg-[#171717] rounded-lg p-4 flex flex-col min-h-[55%] w-[40%] relative"
+            className={`bg-[#171717] rounded-lg p-4 flex flex-col min-h-[${heightPerc}%] w-[${widthPerc}%] relative`}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
