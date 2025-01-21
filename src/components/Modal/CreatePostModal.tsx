@@ -10,11 +10,15 @@ import { error } from "console";
 import { notify } from "../Toast/Toast";
 import { useRequestState } from "@/hooks/useRequestState";
 
+interface CreatePostModalProps {
+  onPostCreated: () => void;
+  closeModal: () => void;
+}
+
 export const CreatePostModal = ({
   onPostCreated,
-}: {
-  onPostCreated: () => void;
-}) => {
+  closeModal,
+}: CreatePostModalProps) => {
   const [textContent, setTextContent] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const { isError, setError, loading, setLoading } = useRequestState();
@@ -22,7 +26,6 @@ export const CreatePostModal = ({
   const { createPost, refetch } = usePosts();
   const { categories, error } = useCategory();
   const { user } = useAuth();
-  const { closeModal } = useModal();
 
   const handleCreatePost = async () => {
     if (!categoryId || !textContent) {

@@ -8,7 +8,7 @@ import { useModal } from "@/context/modal";
 import { useState } from "react";
 
 export default function Home() {
-  const { isModalOpen, closeModal } = useModal();
+  const { isModalOpen, closeModal, modalType, modalProps } = useModal();
 
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -47,9 +47,29 @@ export default function Home() {
           </SideBar.Content>
         </SideBar.Root>
       </div>
-      <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
-        <Modal.CreatePost onPostCreated={handleRefreshFeed} />
-      </Modal.Root>
+
+      {modalType === "createPost" && (
+        <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
+          <Modal.CreatePost
+            onPostCreated={handleRefreshFeed}
+            closeModal={closeModal}
+          />
+        </Modal.Root>
+      )}
+
+      {modalType === "deletePost" && (
+        <Modal.Root
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          heightPercentage={30}
+        >
+          <Modal.DeletePost
+            postId={modalProps?.postId}
+            onDeletePost={handleRefreshFeed}
+            closeModal={closeModal}
+          />
+        </Modal.Root>
+      )}
     </div>
   );
 }

@@ -52,6 +52,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
       return userData;
     } catch (error: any) {
       notify(error, "error");
+      setLoading(false);
     } finally {
       setLoading(false);
     }

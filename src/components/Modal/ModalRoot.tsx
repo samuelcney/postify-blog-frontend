@@ -17,8 +17,8 @@ export const ModalRoot = ({
   widthPercentage,
   heightPercentage,
 }: ModalProps) => {
-  const widthPerc = widthPercentage ? widthPercentage : 40;
-  const heightPerc = heightPercentage ? heightPercentage : 55;
+  const widthPer = widthPercentage ? widthPercentage : "w-[35%]";
+  const heightPer = heightPercentage ? heightPercentage : "min-h-[55%]";
   return (
     <AnimatePresence>
       {isOpen && (
@@ -30,7 +30,7 @@ export const ModalRoot = ({
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className={`bg-[#171717] rounded-lg p-4 flex flex-col min-h-[${heightPerc}%] w-[${widthPerc}%] relative`}
+            className={`bg-[#171717] rounded-lg p-4 flex flex-col ${widthPer} ${heightPer} relative`}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}

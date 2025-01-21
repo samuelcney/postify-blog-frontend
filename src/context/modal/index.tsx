@@ -1,10 +1,11 @@
 "use client";
-
-import React, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 interface ModalContextProps {
   isModalOpen: boolean;
-  openModal: () => void;
+  modalType: string | null;
+  modalProps: Record<string, any> | null;
+  openModal: (type: string, props?: Record<string, any>) => void;
   closeModal: () => void;
 }
 
@@ -14,12 +15,27 @@ export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<string | null>(null);
+  const [modalProps, setModalProps] = useState<Record<string, any> | null>(
+    null
+  );
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (type: string, props?: Record<string, any>) => {
+    setModalType(type);
+    setModalProps(props || null);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalType(null);
+    setModalProps(null);
+    setIsModalOpen(false);
+  };
 
   return (
-    <ModalContext.Provider value={{ isModalOpen, openModal, closeModal }}>
+    <ModalContext.Provider
+      value={{ isModalOpen, modalType, modalProps, openModal, closeModal }}
+    >
       {children}
     </ModalContext.Provider>
   );

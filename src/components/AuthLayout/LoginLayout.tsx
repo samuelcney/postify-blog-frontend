@@ -30,6 +30,7 @@ export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
       login(userData);
       router.push("/home");
     } catch (error: any) {
+      notify(error, "error");
       setError(true);
     } finally {
       setLoading(false);

@@ -3,10 +3,9 @@ import Icon from "../Icon/Icon";
 
 import { formatPostDateTime } from "@/utils/formatPostDateTime";
 import { getCategoryColor } from "@/utils/getCategoryColor";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/auth";
-import { usePosts } from "@/hooks/post/usePost";
-import { notify } from "../Toast/Toast";
+import { useModal } from "@/context/modal";
 
 export const PostItem = ({ ...post }: PostProps) => {
   const categoryColor = post?.category?.title
@@ -14,17 +13,26 @@ export const PostItem = ({ ...post }: PostProps) => {
     : "#A8A8A8";
 
   const [openOptions, setOpenOptions] = useState(false);
-  const { user } = useAuth();
-  const { deletePost } = usePosts();
+  const optionsRef = useRef<HTMLDivElement | null>(null);
 
-  const handleDeletePost = async (id: number) => {
-    if (id === undefined) return;
-    try {
-      await deletePost(id);
-    } catch (err: any) {
-      notify(err, "error");
+  const { user } = useAuth();
+  const { openModal } = useModal();
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      optionsRef.current &&
+      !optionsRef.current.contains(event.target as Node)
+    ) {
+      setOpenOptions(false);
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="w-1/2 border-[0.1px] border-lightgray	flex flex-col p-2 rounded-md">
@@ -43,18 +51,21 @@ export const PostItem = ({ ...post }: PostProps) => {
             name="Ellipsis"
             size="32"
             onClick={() => {
-              setOpenOptions(!openOptions);
+              setOpenOptions((prev) => !prev);
             }}
           />
 
           {openOptions && (
-            <span className="absolute right-[-480%] top-[-50%] bg-[#171717] text-white p-2 rounded-md shadow-md w-[130px] z-50 cursor-pointer">
-              <p>Ver detalhes</p>
+            <span
+              ref={optionsRef}
+              className="absolute right-[-480%] top-[-50%] bg-[#171717] text-white p-2 rounded-md shadow-md w-[130px] z-50 cursor-pointer gap-2 flex flex-col"
+            >
+              <p className="hover:bg-[#323232] p-2 rounded-md">Ver detalhes</p>
 
               {user?.id === post?.user?.id && (
                 <span
-                  className="flex flex-row items-center gap-2"
-                  onClick={() => handleDeletePost(Number(post?.id))}
+                  className="flex flex-row items-center gap-2 hover:bg-[#323232] p-2 rounded-md"
+                  onClick={() => openModal("deletePost", { postId: post?.id })}
                 >
                   <p>Excluir</p>
                   <Icon name="Trash2" size={18} />
