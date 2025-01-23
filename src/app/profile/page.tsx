@@ -1,14 +1,13 @@
 "use client";
 import { Feed } from "@/components/Feed";
 import { SideBar } from "@/components/Sidebar";
-import { PostItemList } from "@/components/Post/PostItemList";
 import Icon from "@/components/Icon/Icon";
 import { Modal } from "@/components/Modal/index";
 import { useModal } from "@/context/modal";
 import { useState } from "react";
 import { UserProfile } from "@/components/UserProfile";
 
-export default function HomePage() {
+export default function ProfilePage() {
   const { isModalOpen, closeModal, modalType, modalProps } = useModal();
 
   const [refreshKey, setRefreshKey] = useState(0);
@@ -38,37 +37,19 @@ export default function HomePage() {
 
         <Feed.Root>
           <Feed.Content>
-            <PostItemList key={refreshKey} feedPost />
+            <UserProfile.Root>
+              <UserProfile.Content />
+            </UserProfile.Root>
           </Feed.Content>
         </Feed.Root>
 
-        <SideBar.Root isRight>
-          <SideBar.Content>
-            <SideBar.RightBar>
-              <UserProfile.Card />
-            </SideBar.RightBar>
-          </SideBar.Content>
-        </SideBar.Root>
+        <SideBar.Root isRight />
       </div>
 
       {modalType === "createPost" && (
         <Modal.Root isOpen={isModalOpen} onClose={closeModal}>
           <Modal.CreatePost
             onPostCreated={handleRefreshFeed}
-            closeModal={closeModal}
-          />
-        </Modal.Root>
-      )}
-
-      {modalType === "deletePost" && (
-        <Modal.Root
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          heightPercentage={30}
-        >
-          <Modal.DeletePost
-            postId={modalProps?.postId}
-            onDeletePost={handleRefreshFeed}
             closeModal={closeModal}
           />
         </Modal.Root>

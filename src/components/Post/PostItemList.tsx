@@ -2,7 +2,11 @@ import Icon from "../Icon/Icon";
 import { PostItem } from "./PostItem";
 import { usePosts } from "@/hooks/post/usePost";
 
-export const PostItemList = () => {
+interface PostItemListProps {
+  feedPost?: boolean;
+}
+
+export const PostItemList = ({ feedPost }: PostItemListProps) => {
   const { posts, isLoading } = usePosts();
 
   if (posts.length === 0) {
@@ -21,7 +25,7 @@ export const PostItemList = () => {
         </div>
       )}
       {posts?.map((post) => (
-        <PostItem {...post} key={post.id} />
+        <PostItem post={post} key={post.id} feedPost={feedPost} />
       ))}
     </>
   );

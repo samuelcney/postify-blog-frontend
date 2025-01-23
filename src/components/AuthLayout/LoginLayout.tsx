@@ -27,7 +27,7 @@ export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
       const userData = await signIn({ email, password });
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      login(userData);
+      login(userData.data);
       router.push("/home");
     } catch (error: any) {
       notify(error, "error");

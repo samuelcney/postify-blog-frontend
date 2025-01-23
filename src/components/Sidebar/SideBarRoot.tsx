@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface SideBarRootProps {
-  children: ReactNode;
+  children?: ReactNode;
   isRight?: boolean;
 }
 

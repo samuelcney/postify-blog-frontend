@@ -7,7 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/auth";
 import { useModal } from "@/context/modal";
 
-export const PostItem = ({ ...post }: PostProps) => {
+interface PostItemProps {
+  post: PostProps;
+  feedPost?: boolean;
+}
+
+export const PostItem = ({ post, feedPost }: PostItemProps) => {
   const categoryColor = post?.category?.title
     ? getCategoryColor(post.category.title)
     : "#A8A8A8";
@@ -35,7 +40,11 @@ export const PostItem = ({ ...post }: PostProps) => {
   }, []);
 
   return (
-    <div className="w-1/2 border-[0.1px] border-lightgray	flex flex-col p-2 rounded-md">
+    <div
+      className={`${
+        feedPost ? "w-1/2" : "w-1/3"
+      } border-[0.1px] border-lightgray	flex flex-col p-2 rounded-md`}
+    >
       <div className="w-full justify-between items-center flex">
         <div className="p-2 flex gap-2 items-center">
           <Icon name="CircleUserRound" size="32" />

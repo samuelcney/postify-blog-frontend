@@ -10,14 +10,24 @@ import React, {
 import Cookies from "js-cookie";
 
 interface User {
+  id?: string | number;
+  username?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+interface UserData {
   token: string;
-  data: any;
+  user: User;
 }
 
 interface AuthContextProps {
-  user: any | null;
+  user: User | null;
   token: string | null;
-  login: (userData: User) => void;
+  login: (userData: UserData) => void;
   logout: () => void;
 }
 
@@ -31,17 +41,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  const login = (userData: any) => {
+  const login = (data: UserData) => {
     try {
-      console.log("userData", userData);
-      setUser(userData.data.user);
-      setToken(userData.data.token);
+      if (!data.user || !data.token) {
+        throw new Error("Dados de usuário ou token inválidos");
+      }
 
-      Cookies.set("user", JSON.stringify(userData?.data?.user), { expires: 1 });
-      Cookies.set("token", userData?.data.token, { expires: 1 });
+      setUser(data.user);
+      setToken(data.token);
+
+      Cookies.set("user", JSON.stringify(data.user || {}), { expires: 1 });
+      Cookies.set("token", data.token || "", { expires: 1 });
     } catch (error: any) {
-      console.log("Erro ao realizar login:", error);
-      throw new Error("Erro ao realizar login", error);
+      throw new Error(error);
     }
   };
 
@@ -57,11 +69,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    const storedUser = Cookies.get("user");
-    const storedToken = Cookies.get("token");
-    if (storedUser && storedToken) {
-      setUser(JSON.parse(storedUser));
-      setToken(storedToken);
+    try {
+      const storedUser = Cookies.get("user");
+      const storedToken = Cookies.get("token");
+
+      if (storedUser && storedToken) {
+        setUser(JSON.parse(storedUser));
+        setToken(storedToken);
+      } else {
+        setUser(null);
+        setToken(null);
+        Cookies.remove("token");
+        Cookies.remove("user");
+      }
+    } catch (error) {
+      console.error("Erro ao carregar usuário do cookie:", error);
+      setUser(null);
+      setToken(null);
+      Cookies.remove("token");
+      Cookies.remove("user");
     }
   }, []);
 

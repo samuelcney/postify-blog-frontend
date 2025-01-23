@@ -23,7 +23,7 @@ export const LeftSideBar = () => {
         <SideBar.Item
           IconName="House"
           Text="Página Inicial"
-          onclick={() => router.refresh()}
+          onclick={() => router.push("/home")}
         />
         <SideBar.Item
           IconName="CircleFadingPlus"
@@ -31,7 +31,11 @@ export const LeftSideBar = () => {
           onclick={() => openModal("createPost")}
         />
         <SideBar.Item IconName="Search" Text="Pesquisa" />
-        <SideBar.Item IconName="User" Text="Perfil" />
+        <SideBar.Item
+          IconName="User"
+          Text="Perfil"
+          onclick={() => router.push("/profile")}
+        />
         <SideBar.Item IconName="Settings" Text="Configurações" />
         <SideBar.Item
           IconName="LogOut"

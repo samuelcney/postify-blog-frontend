@@ -25,7 +25,7 @@ export const ButtonContent = ({
         {isLoading ? (
           <Icon name="LoaderCircle" className="animate-spin" size={20} />
         ) : (
-          <span>{title}</span>
+          <span>{title.toUpperCase()}</span>
         )}
       </button>
     </div>
