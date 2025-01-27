@@ -42,7 +42,7 @@ export const PostItem = ({ post, feedPost }: PostItemProps) => {
   return (
     <div
       className={`${
-        feedPost ? "w-1/2" : "w-1/3"
+        feedPost ? "w-1/2" : "w-1/3 h-1/2"
       } border-[0.1px] border-lightgray	flex flex-col p-2 rounded-md`}
     >
       <div className="w-full justify-between items-center flex">
