@@ -9,23 +9,13 @@ import React, {
 
 import Cookies from "js-cookie";
 
-interface User {
-  id?: string | number;
-  username?: string;
-  email?: string;
-  firstName?: string;
-  lastName?: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
 interface UserData {
   token: string;
-  user: User;
+  user: UserProps;
 }
 
 interface AuthContextProps {
-  user: User | null;
+  user: UserProps | null;
   token: string | null;
   login: (userData: UserData) => void;
   logout: () => void;
@@ -38,7 +28,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserProps | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
   const login = (data: UserData) => {

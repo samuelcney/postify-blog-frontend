@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Input } from "../Input";
-import { usePosts } from "@/hooks/post/usePost";
+import { usePosts } from "@/hooks/posts/usePost";
 import { useAuth } from "@/context/auth";
 import { Button } from "../Button";
 import { Select } from "../Select/Select";
-import { useCategory } from "@/hooks/post/useCategory";
+import { useCategory } from "@/hooks/posts/useCategory";
 import { notify } from "../Toast/Toast";
 import { useRequestState } from "@/hooks/useRequestState";
 

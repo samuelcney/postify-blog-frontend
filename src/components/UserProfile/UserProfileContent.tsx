@@ -1,10 +1,10 @@
-import { useAuth } from "@/context/auth";
-import { usePosts } from "@/hooks/post/usePost";
+import { usePosts } from "@/hooks/posts/usePost";
 import Icon from "../Icon/Icon";
 import { PostItem } from "../Post/PostItem";
+import useUserById from "@/hooks/users/useUserById";
 
-export const UserProfileContent = () => {
-  const { user } = useAuth();
+export const UserProfileContent = ({ id }: { id: string }) => {
+  const { user } = useUserById(id);
 
   const { posts } = usePosts();
 

@@ -1,4 +1,4 @@
-import { usePosts } from "@/hooks/post/usePost";
+import { usePosts } from "@/hooks/posts/usePost";
 import { Button } from "../Button";
 import { notify } from "../Toast/Toast";
 import { useRequestState } from "@/hooks/useRequestState";

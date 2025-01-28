@@ -6,6 +6,7 @@ import { getCategoryColor } from "@/utils/getCategoryColor";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/auth";
 import { useModal } from "@/context/modal";
+import { useRouter } from "next/navigation";
 
 interface PostItemProps {
   post: PostProps;
@@ -19,6 +20,8 @@ export const PostItem = ({ post, feedPost }: PostItemProps) => {
 
   const [openOptions, setOpenOptions] = useState(false);
   const optionsRef = useRef<HTMLDivElement | null>(null);
+
+  const router = useRouter();
 
   const { user } = useAuth();
   const { openModal } = useModal();
@@ -48,7 +51,12 @@ export const PostItem = ({ post, feedPost }: PostItemProps) => {
       <div className="w-full justify-between items-center flex">
         <div className="p-2 flex gap-2 items-center">
           <Icon name="CircleUserRound" size="32" />
-          <p className="text-sm">{post?.user?.username}</p>
+          <p
+            className="text-sm cursor-pointer"
+            onClick={() => router.push(`/profile/${post?.user?.id}`)}
+          >
+            {post?.user?.username}
+          </p>
           <p className="text-lightgray text-sm">•</p>
           <p className="text-lightgray text-xs italic tracking-wider">
             {formatPostDateTime(post?.createdAt || "")}

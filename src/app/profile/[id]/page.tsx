@@ -4,13 +4,18 @@ import { SideBar } from "@/components/Sidebar";
 import Icon from "@/components/Icon/Icon";
 import { Modal } from "@/components/Modal/index";
 import { useModal } from "@/context/modal";
-import { useState } from "react";
+import { use, useState } from "react";
 import { UserProfile } from "@/components/UserProfile";
 
-export default function ProfilePage() {
-  const { isModalOpen, closeModal, modalType, modalProps } = useModal();
+interface ProfilePageProps {
+  params: Promise<{ id: string }>;
+}
 
+export default function ProfilePage({ params }: ProfilePageProps) {
+  const { isModalOpen, closeModal, modalType } = useModal();
   const [refreshKey, setRefreshKey] = useState(0);
+
+  const { id } = use(params);
 
   const handleRefreshFeed = () => {
     setRefreshKey((prev) => prev + 1);
@@ -38,7 +43,7 @@ export default function ProfilePage() {
         <Feed.Root>
           <Feed.Content>
             <UserProfile.Root>
-              <UserProfile.Content />
+              <UserProfile.Content id={id} />
             </UserProfile.Root>
           </Feed.Content>
         </Feed.Root>

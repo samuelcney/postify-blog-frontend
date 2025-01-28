@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { useRouter } from "next/navigation";
 import { SideBar } from ".";
 import packageJson from "../../../package.json";
@@ -7,7 +9,7 @@ const version = packageJson.version;
 
 export const LeftSideBar = () => {
   const router = useRouter();
-
+  const { user } = useAuth();
   const { openModal } = useModal();
   const { logout } = useAuth();
 
@@ -34,7 +36,7 @@ export const LeftSideBar = () => {
         <SideBar.Item
           IconName="User"
           Text="Perfil"
-          onclick={() => router.push("/profile")}
+          onclick={() => router.push(`/profile/${user?.id}`)}
         />
         <SideBar.Item IconName="Settings" Text="Configurações" />
         <SideBar.Item

@@ -1,6 +1,6 @@
 import Icon from "../Icon/Icon";
 import { PostItem } from "./PostItem";
-import { usePosts } from "@/hooks/post/usePost";
+import { usePosts } from "@/hooks/posts/usePost";
 
 interface PostItemListProps {
   feedPost?: boolean;
