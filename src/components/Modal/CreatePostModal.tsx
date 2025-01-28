@@ -3,10 +3,8 @@ import { Input } from "../Input";
 import { usePosts } from "@/hooks/post/usePost";
 import { useAuth } from "@/context/auth";
 import { Button } from "../Button";
-import { useModal } from "@/context/modal";
 import { Select } from "../Select/Select";
 import { useCategory } from "@/hooks/post/useCategory";
-import { error } from "console";
 import { notify } from "../Toast/Toast";
 import { useRequestState } from "@/hooks/useRequestState";
 
@@ -35,7 +33,7 @@ export const CreatePostModal = ({
     setLoading(true);
     try {
       await createPost({
-        userId: user?.id,
+        userId: user?.id ?? "",
         content: textContent,
         categoryId: Number(categoryId),
       });

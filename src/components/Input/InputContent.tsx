@@ -1,63 +1,65 @@
 import { ReactNode } from "react";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 interface InputProps {
-  name: string;
-  value?: string;
-  placeholder?: string;
-  onchange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  icon?: ReactNode;
+  label?: string;
   type?: string;
-  labelText?: string;
-  onclick?: () => void;
+  placeholder?: string;
+  icon?: ReactNode;
+  error?: FieldError | string;
+  register: UseFormRegisterReturn;
   invert?: boolean;
-  errorMessage?: string;
-  isError?: boolean;
+  onclick?: () => void;
 }
+
 export const InputContent = ({
-  onchange,
-  value,
-  placeholder,
+  label,
+  type = "text",
+  placeholder = "",
   icon,
-  name,
-  type,
-  labelText,
+  error,
+  register,
+  invert = false,
   onclick,
-  invert,
-  errorMessage,
-  isError,
 }: InputProps) => {
-  const isInverted = invert ? "invert" : "";
   return (
     <div className="flex flex-col w-full gap-2">
-      {labelText && (
-        <div className="flex flex-col w-full">
-          <label className={`text-[--foreground] text-sm ml-1 ${isInverted}`}>
-            {labelText}
-          </label>
-        </div>
+      {label && (
+        <label
+          className={`text-[--foreground] text-sm ml-1 ${
+            invert ? "invert" : ""
+          }`}
+        >
+          {label}
+        </label>
       )}
 
       <div
-        className={`w-full border border-[--foreground] rounded-lg bg-transparent p-1 flex h-10 ${isInverted} ${
-          isError ? "border-red-600" : ""
-        }`}
+        className={`w-full border rounded-lg p-1 flex items-center h-10 ${
+          invert ? "invert" : ""
+        } ${error ? "border-red-600" : "border-[--foreground]"}`}
       >
         <input
-          name={name}
+          {...register}
           type={type}
-          className="w-full bg-transparent outline-none px-2 py-3 text-lg"
-          value={value}
           placeholder={placeholder}
-          onChange={onchange}
+          className="w-full 
+          h-full bg-transparent px-2 py-3 text-lg focus:outline-none"
         />
         {icon && (
-          <span className="mr-2 h-full items-center flex" onClick={onclick}>
+          <span
+            className="mr-2 flex items-center cursor-pointer"
+            onClick={onclick}
+          >
             {icon}
           </span>
         )}
       </div>
-      {isError && (
-        <span className="text-red-600 text-sm ml-2">{errorMessage}</span>
+
+      {error && (
+        <span className="text-red-600 text-sm ml-2">
+          {typeof error === "object" ? error.message : error}
+        </span>
       )}
     </div>
   );
