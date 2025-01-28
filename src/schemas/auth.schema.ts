@@ -3,20 +3,23 @@ import { z } from "zod";
 const loginSchema = z.object({
   email: z
     .string()
-    .min(1, { message: "Email é obrigatório" })
+    .nonempty({ message: "Email é obrigatório" })
     .email({ message: "Email inválido" }),
-  password: z.string(),
+  password: z.string().nonempty({ message: "" }),
 });
 
 const registerSchema = z
   .object({
-    username: z.string(),
-    firstName: z.string(),
-    lastName: z.string(),
-    email: z.string().email({ message: "Email inválido" }),
+    username: z.string().nonempty({ message: "" }),
+    firstName: z.string().nonempty({ message: "" }),
+    lastName: z.string().nonempty({ message: "" }),
+    email: z
+      .string()
+      .nonempty({ message: "Email é obrigatório" })
+      .email({ message: "Email inválido" }),
     password: z
       .string()
-      .min(6, { message: "Senha deve ter no mínimo 6 caracteres" }),
+      .min(8, { message: "Senha deve ter no mínimo 8 caracteres" }),
     passwordConfirmation: z.string(),
   })
   .refine((data) => data.password === data.passwordConfirmation, {

@@ -54,7 +54,7 @@ export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
             icon={<Icon name="AtSign" size={26} />}
             type="text"
             register={register("email")}
-            error={errors.email?.message}
+            error={errors.email}
           />
           <Input.Content
             label="Senha"
@@ -67,6 +67,7 @@ export const LoginLayout = ({ onToggle }: { onToggle: () => void }) => {
             }
             type={hidePassword ? "password" : "text"}
             register={register("password")}
+            error={errors.password}
           />
         </Input.Root>
 

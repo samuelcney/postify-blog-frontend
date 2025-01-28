@@ -6,7 +6,7 @@ interface InputProps {
   type?: string;
   placeholder?: string;
   icon?: ReactNode;
-  error?: FieldError | string;
+  error?: FieldError;
   register: UseFormRegisterReturn;
   invert?: boolean;
   onclick?: () => void;
@@ -23,7 +23,7 @@ export const InputContent = ({
   onclick,
 }: InputProps) => {
   return (
-    <div className="flex flex-col w-full gap-2">
+    <div className="flex flex-col w-full">
       {label && (
         <label
           className={`text-[--foreground] text-sm ml-1 ${
@@ -56,7 +56,7 @@ export const InputContent = ({
         )}
       </div>
 
-      {error && (
+      {Boolean(error) && (
         <span className="text-red-600 text-sm ml-2">
           {typeof error === "object" ? error.message : error}
         </span>

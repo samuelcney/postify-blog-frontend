@@ -51,7 +51,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
             icon={<Icon name="AtSign" size={size} />}
             type="text"
             register={register("email")}
-            error={errors.email?.message}
+            error={errors.email}
           />
 
           <Input.Content
@@ -59,21 +59,21 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
             icon={<Icon name="User" size={size} />}
             type="text"
             register={register("username")}
-            error={errors.username?.message}
+            error={errors.username}
           />
 
           <Input.Content
             label="Primeiro Nome"
             type="text"
             register={register("firstName")}
-            error={errors.firstName?.message}
+            error={errors.firstName}
           />
 
           <Input.Content
             label="Sobrenome"
             type="text"
             register={register("lastName")}
-            error={errors.lastName?.message}
+            error={errors.lastName}
           />
 
           <Input.Content
@@ -84,7 +84,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
             type={hidePassword ? "password" : "text"}
             onclick={() => setHidePassword(!hidePassword)}
             register={register("password")}
-            error={errors.password?.message}
+            error={errors.password}
           />
 
           <Input.Content
@@ -95,7 +95,7 @@ export const RegisterLayout = ({ onToggle }: { onToggle: () => void }) => {
             }
             type={hidePassword ? "password" : "text"}
             onclick={() => setHidePassword(!hidePassword)}
-            error={errors.passwordConfirmation?.message}
+            error={errors.passwordConfirmation}
           />
         </Input.Root>
 
