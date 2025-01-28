@@ -1,11 +1,11 @@
 import { axiosInstance } from "../axios/axiosInstance";
 
-interface User {
+interface LoginData {
   email: string;
   password: string;
 }
 
-export const signIn = async (data: User) => {
+export const signIn = async (data: LoginData) => {
   try {
     const response = await axiosInstance.post("/login", data);
     return response.data;
@@ -17,14 +17,6 @@ export const signIn = async (data: User) => {
 };
 
 export const singUp = async (data: UserCreateDTO) => {
-  if (
-    !data.email ||
-    !data.password ||
-    !data.username ||
-    !data.firstName ||
-    !data.lastName
-  )
-    return Promise.reject("Preencha todos os campos");
   try {
     const response = await axiosInstance.post("/users", {
       username: data.username,

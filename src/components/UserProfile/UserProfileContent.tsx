@@ -1,7 +1,6 @@
 import { useAuth } from "@/context/auth";
 import { usePosts } from "@/hooks/post/usePost";
 import Icon from "../Icon/Icon";
-import { PostItemList } from "../Post/PostItemList";
 import { PostItem } from "../Post/PostItem";
 
 export const UserProfileContent = () => {
@@ -45,7 +44,7 @@ export const UserProfileContent = () => {
         }}
       >
         {postsArray?.map((post) => (
-          <PostItem post={post} />
+          <PostItem post={post} key={post.id} />
         ))}
       </div>
     </div>
