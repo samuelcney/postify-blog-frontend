@@ -8,7 +8,7 @@ export const UserProfileContent = ({ id }: { id: string }) => {
 
   const { posts } = usePosts();
 
-  const postsArray = posts.filter((post) => user?.id === post.user.id);
+  const filteredPosts = posts.filter((post) => user?.id === post.user.id);
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center ml-24">
@@ -25,9 +25,9 @@ export const UserProfileContent = ({ id }: { id: string }) => {
             {user?.firstName} {user?.lastName}
           </h2>
           <h3 className="ml-1">
-            {postsArray.length === 1
-              ? `${postsArray.length} publicação`
-              : `${postsArray.length} publicações`}
+            {filteredPosts.length === 1
+              ? `${filteredPosts.length} publicação`
+              : `${filteredPosts.length} publicações`}
           </h3>
         </div>
       </div>
@@ -43,7 +43,7 @@ export const UserProfileContent = ({ id }: { id: string }) => {
           scrollbarColor: "#ffffff transparent",
         }}
       >
-        {postsArray?.map((post) => (
+        {filteredPosts?.map((post) => (
           <PostItem post={post} key={post.id} />
         ))}
       </div>

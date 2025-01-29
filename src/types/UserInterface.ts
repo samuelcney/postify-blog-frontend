@@ -7,7 +7,7 @@ interface UserCreateDTO {
 }
 
 interface UserProps {
-  id?: string | number;
+  id?: string;
   username?: string;
   email?: string;
   firstName?: string;

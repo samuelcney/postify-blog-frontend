@@ -7,6 +7,9 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/auth";
 import { useModal } from "@/context/modal";
 import { useRouter } from "next/navigation";
+import { notify } from "../Toast/Toast";
+import { favoriteService } from "@/services/posts/favoriteService";
+import { set } from "react-hook-form";
 
 interface PostItemProps {
   post: PostProps;
@@ -19,6 +22,8 @@ export const PostItem = ({ post, feedPost }: PostItemProps) => {
     : "#A8A8A8";
 
   const [openOptions, setOpenOptions] = useState(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
   const optionsRef = useRef<HTMLDivElement | null>(null);
 
   const router = useRouter();
@@ -32,6 +37,31 @@ export const PostItem = ({ post, feedPost }: PostItemProps) => {
       !optionsRef.current.contains(event.target as Node)
     ) {
       setOpenOptions(false);
+    }
+  };
+
+  const loadFavoritePosts = async (userId: string) => {
+    try {
+      const response = await favoriteService.getIsFavoritePost(post.id, userId);
+      setIsFavorite(response);
+    } catch (err: any) {
+      notify(err, "error");
+      setIsFavorite(false);
+    }
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      loadFavoritePosts(user.id);
+    }
+  }, [user?.id]);
+
+  const handleFavoritePost = async (postId: string, userId: string) => {
+    try {
+      await favoriteService.favoritePost(postId, userId);
+      setIsFavorite((prev) => !prev);
+    } catch (err: any) {
+      notify(err, "error");
     }
   };
 
@@ -111,6 +141,9 @@ export const PostItem = ({ post, feedPost }: PostItemProps) => {
               name="Heart"
               size={28}
               className="hover:opacity-50 transition duration-200 cursor-pointer"
+              fill={isFavorite ? "red" : "none"}
+              color={isFavorite ? "red" : "white"}
+              onClick={() => handleFavoritePost(post?.id, user?.id ?? "")}
             />
             <Icon
               name="MessageCircle"

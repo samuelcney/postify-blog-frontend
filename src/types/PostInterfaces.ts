@@ -5,10 +5,11 @@ export interface PostRequestDTO {
 }
 
 export interface PostProps {
-  id: number;
+  id: string;
   content: string;
   user: { id: number | string; username?: string };
   createdAt?: string;
   updatedAt?: string;
   category: { id: number | string; title?: string };
+  isFavorite?: boolean;
 }
