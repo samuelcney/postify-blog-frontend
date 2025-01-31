@@ -40,20 +40,22 @@ export const PostItem = ({ post, feedPost }: PostItemProps) => {
     }
   };
 
-  const loadFavoritePosts = async (userId: string) => {
+  const loadFavoritePosts = async () => {
     try {
-      const response = await favoriteService.getIsFavoritePost(post.id, userId);
-      setIsFavorite(response);
+      const response = await favoriteService.getFavoritesByPost(post.id);
+      if (response) {
+        setIsFavorite(
+          response.some((favorite: any) => favorite.user.id === user?.id)
+        );
+      }
     } catch (err: any) {
       notify(err, "error");
-      setIsFavorite(false);
+      setIsFavorite((prev) => !prev);
     }
   };
 
   useEffect(() => {
-    if (user?.id) {
-      loadFavoritePosts(user.id);
-    }
+    loadFavoritePosts();
   }, [user?.id]);
 
   const handleFavoritePost = async (postId: string, userId: string) => {

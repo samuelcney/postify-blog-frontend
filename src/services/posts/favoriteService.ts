@@ -1,11 +1,8 @@
 import { axiosInstance } from "../axios/axiosInstance";
 
-const getIsFavoritePost = async (postId: string, userId: string) => {
+const getFavoritesByPost = async (postId: string) => {
   try {
-    const response = await axiosInstance.get(
-      `/posts/${postId}/favorites/isFavorite`,
-      { params: userId }
-    );
+    const response = await axiosInstance.get(`/posts/${postId}/favorites`);
     return response.data;
   } catch (error: any) {
     return Promise.reject(
@@ -27,4 +24,4 @@ const favoritePost = async (postId: string, userId: string) => {
   }
 };
 
-export const favoriteService = { getIsFavoritePost, favoritePost };
+export const favoriteService = { getFavoritesByPost, favoritePost };
